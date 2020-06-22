@@ -1,0 +1,21 @@
+---
+- hosts: mycluster
+  gather_facts: false
+  any_errors_fatal: true
+  tasks:
+  - name: Facters
+    veritas_infoscale:
+     module: site_facters
+    register: facts
+  - name: Install InfoScale 
+    veritas_infoscale:
+     module: yum
+     repository_name: nxlabfiler
+     repository_baseurl: http://file.nxlab.fr/#veritas/ISO/rhel7_x86_64
+     gpgcheck: 1
+     gpgkey: http://file.nxlab.fr/veritas/ISO/rhel7_x86_64/rpms/RPM-GPG-KEY-veritas-infoscale7
+     product: ENTERPRISE
+     product_version: 7.4.2
+     facters: "{{ groups['all'] |map('extract', hostvars, ['facts','infoscale_facts'])| select()|list }}"
+     state: present
+
