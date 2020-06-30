@@ -2,8 +2,8 @@
 ---
 cluster-vrts:
   hosts:
-     10.83.1.37:
-     10.83.1.92:
+     10.83.1.1:
+     10.83.1.110:
     # 10.83.1.58:
   vars:
     ansible_ssh_private_key_file: "calm_rsa"
